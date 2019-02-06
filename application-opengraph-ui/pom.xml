@@ -33,7 +33,10 @@
     <packaging>xar</packaging>
     <description>Adds OpenGraph tags to page head.</description>
     <properties>
-        <xwiki.extension.name>OpenGraph Application UI</xwiki.extension.name>
+        <xwiki.extension.name>OpenGraph Application</xwiki.extension.name>
         <xwiki.extension.category>application</xwiki.extension.category>
+        <xwiki.release.jira.skip>true</xwiki.release.jira.skip>
+        <xwiki.issueManagement.system>jira</xwiki.issueManagement.system>
+        <xwiki.issueManagement.url>https://jira.xwiki.org/projects/OPENGRAPH/</xwiki.issueManagement.url>
     </properties>
 </project>
