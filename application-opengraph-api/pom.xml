@@ -20,30 +20,34 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.xwiki.contrib</groupId>
     <artifactId>application-opengraph</artifactId>
     <version>1.2-SNAPSHOT</version>
   </parent>
-  <artifactId>application-opengraph-ui</artifactId>
-  <name>OpenGraph Application UI</name>
-  <packaging>xar</packaging>
-  <description>Adds OpenGraph tags to page head.</description>
+  <artifactId>application-opengraph-api</artifactId>
   <properties>
-    <xwiki.extension.name>OpenGraph Application</xwiki.extension.name>
-    <xwiki.extension.category>application</xwiki.extension.category>
-    <xwiki.release.jira.skip>true</xwiki.release.jira.skip>
-    <xwiki.issueManagement.system>jira</xwiki.issueManagement.system>
-    <xwiki.issueManagement.url>https://jira.xwiki.org/projects/OPENGRAPH/</xwiki.issueManagement.url>
+    <xwiki.jacoco.instructionRatio>0.07</xwiki.jacoco.instructionRatio>
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.xwiki.contrib</groupId>
-      <artifactId>application-opengraph-api</artifactId>
-      <version>${project.version}</version>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-oldcore</artifactId>
+      <version>${platform.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.commons</groupId>
+      <artifactId>xwiki-commons-tool-test-component</artifactId>
+      <version>${commons.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
     </dependency>
   </dependencies>
 </project>

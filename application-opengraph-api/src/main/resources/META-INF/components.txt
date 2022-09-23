@@ -1,0 +1,2 @@
+org.xwiki.contrib.opengraph.internal.OpenGraphMetaClassInitializer
+org.xwiki.contrib.opengraph.script.OpenGraphScriptService

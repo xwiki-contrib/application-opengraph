@@ -46,5 +46,6 @@
   </developers>
   <modules>
     <module>application-opengraph-ui</module>
+    <module>application-opengraph-api</module>
   </modules>
 </project>
