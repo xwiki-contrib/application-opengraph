@@ -172,9 +172,12 @@
     #end
   #end
 #end
-&lt;meta property="og:url" content="$doc.externalURL"/&gt;
+#set ($syntaxPlain = $services.rendering.resolveSyntax('plain/1.0'))
+#set ($description = $stringtool.abbreviate($stringtool.trim($doc.getRenderedContent($syntaxPlain)), 200))
+&lt;meta property="og:url" content="$escapetool.xml($doc.externalURL)"/&gt;
 &lt;meta property="og:type" content="article" /&gt;
-&lt;meta property="og:title" content="$escapetool.xml($tdoc.getRenderedTitle("plain/1.0"))" /&gt;
+&lt;meta property="og:title" content="$escapetool.xml($tdoc.getRenderedTitle($syntaxPlain))" /&gt;
+&lt;meta property="og:description" content="$escapetool.xml($description)" /&gt;
 ## Add all current page's image attachments as "og:image".
 #addOpenGraphTagsForAttachedImages($doc.documentReference)
 ## If current page has no attached image, add the ones of the home page, if any.
