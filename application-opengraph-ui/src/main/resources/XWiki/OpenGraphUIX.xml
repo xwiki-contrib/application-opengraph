@@ -159,11 +159,13 @@
     </property>
     <property>
       <content>{{velocity}}
+{{html clean="false"}}
 #foreach ($property in $services.opengraph.metas().entrySet())
   #foreach ($content in $property.value)
     &lt;meta property="$escapetool.xml($property.key)" content="$escapetool.xml($content)" /&gt;
   #end
 #end
+{{/html}}
 {{/velocity}}</content>
     </property>
     <property>
