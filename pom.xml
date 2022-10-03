@@ -20,8 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.xwiki.contrib</groupId>
@@ -29,7 +28,7 @@
     <version>10.11</version>
   </parent>
   <artifactId>application-opengraph</artifactId>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.2.1</version>
   <name>OpenGraph Application - Parent POM</name>
   <packaging>pom</packaging>
   <description>Adds OpenGraph tags to page head.</description>
@@ -37,7 +36,7 @@
     <connection>scm:git:git://github.com/xwiki-contrib/application-opengraph.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/application-opengraph.git</developerConnection>
     <url>https://github.com/xwiki-contrib/application-opengraph/tree/master</url>
-    <tag>HEAD</tag>
+    <tag>application-opengraph-1.2.1</tag>
   </scm>
   <developers>
     <developer>
