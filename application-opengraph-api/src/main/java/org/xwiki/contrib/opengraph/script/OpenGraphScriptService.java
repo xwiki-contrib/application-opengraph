@@ -163,16 +163,21 @@ public class OpenGraphScriptService implements ScriptService
             }
         }
 
-        // Only try to compute images if the current document is not the main page of the current wiki and a least 
-        // one attachment is an image.
-        if (!Objects.equals(wikiDescriptor.getMainPageReference(), doc.getDocumentReference())
-            && doc.getAttachmentList().stream().anyMatch(attachment -> attachment.isImage(context)))
-        {
-            metasMap.computeIfAbsent(OG_IMAGE_PROPERTY, key -> doc.getAttachmentList()
-                .stream()
-                .filter(attachment -> attachment.isImage(context))
-                .map(image -> doc.getExternalAttachmentURL(image.getFilename(), DownloadAction.ACTION_NAME, context))
-                .collect(Collectors.toList()));
+        // We first try to load images from the current document if it has images.
+        // Then, if the current page is not the main page, we try to load images from the main page.
+        boolean isMainPage = Objects.equals(wikiDescriptor.getMainPageReference(), doc.getDocumentReference());
+        if (docHasImages(doc)) {
+            addImagesFromDocument(metasMap, doc);
+        } else if (!isMainPage) {
+            try {
+                XWikiDocument mainPage = context.getWiki().getDocument(wikiDescriptor.getMainPageReference(), context);
+                if (docHasImages(mainPage)) {
+                    addImagesFromDocument(metasMap, mainPage);
+                }
+            } catch (XWikiException e) {
+                throw new OpenGraphException(
+                    String.format("Failed to load main page [%s]", wikiDescriptor.getMainPageReference()), e);
+            }
         }
 
         return metasMap;
@@ -215,5 +220,22 @@ public class OpenGraphScriptService implements ScriptService
             result = Optional.of(property);
         }
         return result;
+    }
+
+    private void addImagesFromDocument(Map<String, List<String>> metasMap, XWikiDocument doc)
+    {
+        XWikiContext context = this.contextProvider.get();
+        metasMap.computeIfAbsent(OG_IMAGE_PROPERTY, key -> doc.getAttachmentList()
+            .stream()
+            .filter(attachment -> attachment.isImage(context))
+            .map(image -> doc.getExternalAttachmentURL(image.getFilename(), DownloadAction.ACTION_NAME, context))
+            .collect(Collectors.toList()));
+    }
+
+    private boolean docHasImages(XWikiDocument doc)
+    {
+        return doc.getAttachmentList()
+            .stream()
+            .anyMatch(attachment -> attachment.isImage(this.contextProvider.get()));
     }
 }

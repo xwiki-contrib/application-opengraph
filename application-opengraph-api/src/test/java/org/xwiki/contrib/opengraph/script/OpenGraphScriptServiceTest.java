@@ -19,7 +19,6 @@
  */
 package org.xwiki.contrib.opengraph.script;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +38,7 @@ import org.xwiki.test.junit5.mockito.MockComponent;
 import org.xwiki.wiki.descriptor.WikiDescriptor;
 import org.xwiki.wiki.descriptor.WikiDescriptorManager;
 
+import com.xpn.xwiki.XWiki;
 import com.xpn.xwiki.XWikiContext;
 import com.xpn.xwiki.doc.XWikiAttachment;
 import com.xpn.xwiki.doc.XWikiDocument;
@@ -94,7 +94,13 @@ class OpenGraphScriptServiceTest
     private XWikiDocument tdoc;
 
     @Mock
+    private XWikiDocument mainDocument;
+
+    @Mock
     private WikiDescriptor wikiDescriptor;
+
+    @Mock
+    private XWiki wiki;
 
     @BeforeEach
     void setUp() throws Exception
@@ -111,6 +117,8 @@ class OpenGraphScriptServiceTest
         when(this.wikiDescriptorManager.getById("xwiki")).thenReturn(this.wikiDescriptor);
         when(this.wikiDescriptor.getMainPageReference()).thenReturn(MAIN_DOCUMENT_REFERENCE);
         when(this.authorizationManager.hasAccess(any(), any(), any())).thenReturn(true);
+        when(this.context.getWiki()).thenReturn(this.wiki);
+        when(this.wiki.getDocument(MAIN_DOCUMENT_REFERENCE, this.context)).thenReturn(this.mainDocument);
     }
 
     @Test
@@ -205,6 +213,7 @@ class OpenGraphScriptServiceTest
         expected.put("og:title", singletonList("my title"));
         expected.put("og:url", singletonList("http://domain/uri"));
         expected.put("og:description", singletonList("my content"));
+        expected.put("og:image", asList("http://domain/download/A", "http://domain/download/C"));
 
         assertEquals(expected, metas);
         verify(this.context).put(OG_METAS_CONTEXT, OG_METAS_CONTEXT);
@@ -227,7 +236,7 @@ class OpenGraphScriptServiceTest
         BaseObject baseObjectOther = mock(BaseObject.class);
         BaseObject baseObjectX1 = mock(BaseObject.class);
         BaseObject baseObjectX2 = mock(BaseObject.class);
-        when(this.doc.getXObjects(OpenGraphMetaClassInitializer.XCLASS_DOCUMENT_REFERENCE)).thenReturn(Arrays.asList(
+        when(this.doc.getXObjects(OpenGraphMetaClassInitializer.XCLASS_DOCUMENT_REFERENCE)).thenReturn(asList(
             baseObjectTitle,
             baseObjectOther,
             baseObjectX1,
