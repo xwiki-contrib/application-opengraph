@@ -28,7 +28,7 @@
     <version>10.11</version>
   </parent>
   <artifactId>application-opengraph</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <name>OpenGraph Application - Parent POM</name>
   <packaging>pom</packaging>
   <description>Adds OpenGraph tags to page head.</description>
@@ -36,7 +36,7 @@
     <connection>scm:git:git://github.com/xwiki-contrib/application-opengraph.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/application-opengraph.git</developerConnection>
     <url>https://github.com/xwiki-contrib/application-opengraph/tree/master</url>
-    <tag>HEAD</tag>
+    <tag>application-opengraph-1.2</tag>
   </scm>
   <developers>
     <developer>
