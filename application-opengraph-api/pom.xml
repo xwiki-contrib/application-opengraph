@@ -30,8 +30,12 @@
     <version>1.2-SNAPSHOT</version>
   </parent>
   <artifactId>application-opengraph-api</artifactId>
+  <name>OpenGraph Application API</name>
+  <description>Provides APIs to integrate OpenGraph in XWiki</description>
   <properties>
-    <xwiki.jacoco.instructionRatio>0.07</xwiki.jacoco.instructionRatio>
+    <xwiki.jacoco.instructionRatio>0.71</xwiki.jacoco.instructionRatio>
+    <xwiki.extension.name>OpenGraph API</xwiki.extension.name>
+    <xwiki.extension.category>api</xwiki.extension.category>
   </properties>
   <dependencies>
     <dependency>
