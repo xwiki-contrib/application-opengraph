@@ -19,6 +19,10 @@
  */
 package org.xwiki.contrib.opengraph.internal;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+import org.xwiki.component.annotation.Component;
 import org.xwiki.model.reference.LocalDocumentReference;
 
 import com.xpn.xwiki.doc.AbstractMandatoryClassInitializer;
@@ -34,6 +38,9 @@ import static java.util.Arrays.asList;
  * @version $Id$
  * @since 1.2
  */
+@Component
+@Named("XWiki.OpenGraph.Code.OpenGraphMetaClass")
+@Singleton
 public class OpenGraphMetaClassInitializer extends AbstractMandatoryClassInitializer
 {
     /**

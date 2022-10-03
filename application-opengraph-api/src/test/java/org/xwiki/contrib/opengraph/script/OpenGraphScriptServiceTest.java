@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Named;
 import javax.inject.Provider;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.xwiki.contrib.opengraph.internal.OpenGraphMetaClassInitializer;
 import org.xwiki.model.reference.DocumentReference;
+import org.xwiki.security.authorization.AuthorizationManager;
 import org.xwiki.test.junit5.mockito.ComponentTest;
 import org.xwiki.test.junit5.mockito.InjectMockComponents;
 import org.xwiki.test.junit5.mockito.MockComponent;
@@ -76,11 +76,13 @@ class OpenGraphScriptServiceTest
     private OpenGraphScriptService openGraphScriptService;
 
     @MockComponent
-    @Named("readonly")
     private Provider<XWikiContext> contextProvider;
 
     @MockComponent
     private WikiDescriptorManager wikiDescriptorManager;
+
+    @MockComponent
+    private AuthorizationManager authorizationManager;
 
     @Mock
     private XWikiContext context;
@@ -108,10 +110,11 @@ class OpenGraphScriptServiceTest
         when(this.context.getWikiId()).thenReturn("xwiki");
         when(this.wikiDescriptorManager.getById("xwiki")).thenReturn(this.wikiDescriptor);
         when(this.wikiDescriptor.getMainPageReference()).thenReturn(MAIN_DOCUMENT_REFERENCE);
+        when(this.authorizationManager.hasAccess(any(), any(), any())).thenReturn(true);
     }
 
     @Test
-    void metas() throws Exception
+    void metas()
     {
         Map<String, List<String>> metas = this.openGraphScriptService.metas();
         HashMap<Object, Object> expected = new HashMap<>();
@@ -126,7 +129,7 @@ class OpenGraphScriptServiceTest
     }
 
     @Test
-    void metasWithAttachments() throws Exception
+    void metasWithAttachments()
     {
         XWikiAttachment attachmentA = mock(XWikiAttachment.class);
         XWikiAttachment attachmentB = mock(XWikiAttachment.class);
@@ -167,7 +170,7 @@ class OpenGraphScriptServiceTest
     }
 
     @Test
-    void metasWithAttachmentsOnMainPage() throws Exception
+    void metasWithAttachmentsOnMainPage()
     {
         when(this.doc.getDocumentReference()).thenReturn(MAIN_DOCUMENT_REFERENCE);
 
@@ -209,7 +212,7 @@ class OpenGraphScriptServiceTest
     }
 
     @Test
-    void metasSkipOnContext() throws Exception
+    void metasSkipOnContext()
     {
         when(this.context.get(OG_METAS_CONTEXT)).thenReturn(OG_METAS_CONTEXT);
         assertEquals(Collections.emptyMap(), this.openGraphScriptService.metas());
@@ -218,7 +221,7 @@ class OpenGraphScriptServiceTest
     }
 
     @Test
-    void metasWithXObject() throws Exception
+    void metasWithXObject()
     {
         BaseObject baseObjectTitle = mock(BaseObject.class);
         BaseObject baseObjectOther = mock(BaseObject.class);
